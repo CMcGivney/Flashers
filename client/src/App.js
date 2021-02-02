@@ -13,6 +13,7 @@ import Login from "./pages/Login.js";
 import Register from "./pages/Register.js";
 import NavBar from "./components/NavBar.js";
 import SingleFlash from './pages/SingleFlash'
+import Landing from './pages/Landing';
 
 function App() {
   return (
@@ -20,7 +21,8 @@ function App() {
       <Router>
         <Container>
           <NavBar />
-          <Route exact path="/" component={Home} />
+          <Route exact path="/" component={Landing} />
+          <Route exact path="/home" component={Home} />
           <Route exact path="/login" component={Login} />
           <Route exact path="/register" component={Register} />
           <Route exact path="/flashes/:flashId" component={SingleFlash} />

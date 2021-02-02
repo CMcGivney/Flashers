@@ -1,9 +1,10 @@
-import gql from 'graphql-tag';
+import gql from "graphql-tag";
 
 export const FETCH_FLASH_QUERY = gql`
   {
     getFlashCards {
       id
+      category
       question
       answer
       hint1
@@ -17,6 +18,14 @@ export const FETCH_FLASH_QUERY = gql`
         username
         createdAt
       }
+    }
+  }
+`;
+
+export const FETCH_CATAGORIES_QUERY = gql`
+  query{
+    getCardsByCategories {
+      category
     }
   }
 `;

@@ -1,6 +1,7 @@
 const { model, Schema } = require("mongoose");
 
 const flashcardSchema = new Schema({
+  category: String,
   question: String,
   answer: String,
   hint1: String,

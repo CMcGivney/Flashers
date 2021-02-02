@@ -24,7 +24,12 @@ const authLink = setContext(() => {
 
 const client = new ApolloClient({
   link: authLink.concat(httpLink),
-  cache: new InMemoryCache()
+  cache: new InMemoryCache(),
+  resolver: {
+    FlashCards: {
+      _deleted: flashcard => Boolean(flashcard._deleted)
+    }
+  },
 });
 
 export default (

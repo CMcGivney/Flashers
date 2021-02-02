@@ -1,41 +1,67 @@
-import React, {useContext} from "react";
-import { Card } from "semantic-ui-react";
+import React, { useContext } from "react";
+import { Card, Button } from "semantic-ui-react";
 import { Link } from "react-router-dom";
-import moment from 'moment'
+import moment from "moment";
 
-import {AuthContext} from '../context/auth'
-import LikeButton from './LikeButton'
-import DeleteButton from './DeleteButton'
-
+import { AuthContext } from "../context/auth";
+import LikeButton from "./LikeButton";
+import DeleteButton from "./DeleteButton";
+import useToggle from "../util/toggle.js";
 
 function FlashCard({
-  flash: { question, answer, hint1, hint2, hint3, createdAt, id, username, likeCount, likes },
-}) {
-
-const {user} = useContext(AuthContext)
-
+  flash: {
+    category,
+    question,
+    answer,
+    hint1,
+    hint2,
+    hint3,
+    createdAt,
+    id,
+    username,
+    likeCount,
+    likes
+  },
+}, client) {
+  const { user } = useContext(AuthContext);
+  const [hintOne, toggleOne] = useToggle();
+  const [hintTwo, toggleTwo] = useToggle();
+  const [hintThree, toggleThree] = useToggle();
+  const [answerOn, toggleAnswer] = useToggle();
 
   return (
     <Card>
       <Card.Content>
-        <Card.Header>{username}</Card.Header>
+        <Card.Header textAlign="center" >{category}</Card.Header>
+        <div style={{display:"flex", flexFlow:"row nowrap", justifyContent:"space-around"}}>
+        <Card.Meta>createdBy: {username}</Card.Meta>
         <Card.Meta as={Link} to={`/flashes/${id}`}>
-          {moment(createdAt).fromNow(true)}
+          {moment(createdAt).fromNow(true)} ago
         </Card.Meta>
-        <Card.Description>{question}</Card.Description>
+        </div>
         <hr></hr>
-        <Card.Content>Answer: {answer}</Card.Content>
-        <Card.Content>Hint #1: {hint1}</Card.Content>
-        <Card.Content>Hint #2: {hint2}</Card.Content>
-        <Card.Content>Hint #3: {hint3}</Card.Content>
+        <Card.Description style={{height:"150px", display:"flex", justifyContent: "center"}} textAlign="center">{question} </Card.Description>
+        <hr></hr>
+        <Button.Group vertical fluid>
+          <Button onClick={toggleOne}>
+            Hint #1 {hintOne ? ": '" + hint1 + "'" : ""}
+          </Button>
+          <Button onClick={toggleTwo}>
+            Hint #2 {hintTwo ? ": '" + hint2 + "'" : ""}
+          </Button>
+          <Button onClick={toggleThree}>
+            Hint #3 {hintThree ? ": '" + hint3 + "'": ""}
+          </Button>
+          <Button onClick={toggleAnswer}>
+            Answer {answerOn ? ": '" + answer + "'": ""}
+          </Button>
+        </Button.Group>
       </Card.Content>
       <Card.Content extra>
         <div>
-          <LikeButton user={user} post={{ id, likes, likeCount}}/>
+          <LikeButton user={user} flash={{ id, likes, likeCount }} />
         </div>
-        {user && user.username === username && (
-         <DeleteButton flashId={id} />
-        )}
+        {user && user.username === username && <DeleteButton flashId={id} />}
       </Card.Content>
     </Card>
   );

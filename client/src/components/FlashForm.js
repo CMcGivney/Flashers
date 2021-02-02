@@ -8,6 +8,7 @@ import { FETCH_FLASH_QUERY } from "../util/graphql";
 
 function FlashForm() {
   const { values, onChange, onSubmit } = useForm(createFlashCallback, {
+    category: "",
     question: "",
     answer: "",
     hint1: "",
@@ -18,12 +19,12 @@ function FlashForm() {
   const [createFlash, { error }] = useMutation(CREATE_FLASH_MUTATION, {
     variables: values,
     update(proxy, result) {
-      console.log(error);
       const data = proxy.readQuery({
         query: FETCH_FLASH_QUERY,
       });
       data.getFlashCards = [result.data.createFlash, ...data.getFlashCards];
       proxy.writeQuery({ query: FETCH_FLASH_QUERY, data });
+      values.category = "";
       values.question = "";
       values.answer = "";
       values.hint1 = "";
@@ -41,6 +42,14 @@ function FlashForm() {
       <Form onSubmit={onSubmit}>
         <h2>Create a Flashcard:</h2>
         <Form.Field>
+          <Form.Input
+            label="Category"
+            placeholder="90s Movies"
+            name="category"
+            onChange={onChange}
+            value={values.category}
+            error={error ? true : false}
+          />
           <Form.Input
             label="Flasher Card Question"
             placeholder="What 90s movie has a pirate and flying boy?"
@@ -99,20 +108,23 @@ function FlashForm() {
 
 const CREATE_FLASH_MUTATION = gql`
   mutation createFlash(
-    $question: String!,
-    $answer: String!,
-    $hint1: String!,
-    $hint2: String!,
+    $category: String!
+    $question: String!
+    $answer: String!
+    $hint1: String!
+    $hint2: String!
     $hint3: String!
   ) {
     createFlash(
-      question: $question,
-      answer: $answer,
-      hint1: $hint1,
-      hint2: $hint2,
+      category: $category
+      question: $question
+      answer: $answer
+      hint1: $hint1
+      hint2: $hint2
       hint3: $hint3
     ) {
       id
+      category
       question
       answer
       hint1

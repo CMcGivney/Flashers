@@ -22,11 +22,11 @@ function NavBar() {
         active
         onClick={handleItemClick}
         as={Link}
-        to="/"
+        to="/home"
       />
 
       <Menu.Menu position="right">
-        <Menu.Item name="logout" onClick={logout} />
+        <Menu.Item name="logout" onClick={logout} as={Link} to="/" />
       </Menu.Menu>
     </Menu>
   ) : (
