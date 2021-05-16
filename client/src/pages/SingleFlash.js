@@ -13,7 +13,6 @@ import useToggle from "../util/toggle.js";
 function SingleFlash(props) {
   const flashId = props.match.params.flashId;
   const { user } = useContext(AuthContext);
-  console.log(flashId);
 
   const [hintOne, toggleOne] = useToggle();
   const [hintTwo, toggleTwo] = useToggle();
@@ -25,8 +24,6 @@ function SingleFlash(props) {
       flashId,
     },
   });
-  console.log(data)
- 
 
   function deleteFlashCallback() {
     props.history.push("/home");
@@ -55,28 +52,32 @@ function SingleFlash(props) {
       <Card fluid>
         <Card.Content>
           <Card.Header>{category}</Card.Header>
-          <div style={{display:"flex", flexFlow:"row nowrap", justifyContent:"space-around"}}>
-        <Card.Meta>createdBy: {username}</Card.Meta>
-        <Card.Meta>
-          {moment(createdAt).fromNow(true)} ago
-        </Card.Meta>
-        </div>
+          <div
+            style={{
+              display: "flex",
+              flexFlow: "row nowrap",
+              justifyContent: "space-around",
+            }}
+          >
+            <Card.Meta>createdBy: {username}</Card.Meta>
+            <Card.Meta>{moment(createdAt).fromNow(true)} ago</Card.Meta>
+          </div>
           <Card.Description>{question}</Card.Description>
           <hr></hr>
-        <Button.Group vertical fluid>
-          <Button onClick={toggleOne}>
-            Hint #1 {hintOne ? ": '" + hint1 + "'" : ""}
-          </Button>
-          <Button onClick={toggleTwo}>
-            Hint #2 {hintTwo ? ": '" + hint2 + "'" : ""}
-          </Button>
-          <Button onClick={toggleThree}>
-            Hint #3 {hintThree ? ": '" + hint3 + "'": ""}
-          </Button>
-          <Button onClick={toggleAnswer}>
-            Answer {answerOn ? ": '" + answer + "'": ""}
-          </Button>
-        </Button.Group>
+          <Button.Group vertical fluid>
+            <Button onClick={toggleOne}>
+              Hint #1 {hintOne ? ": '" + hint1 + "'" : ""}
+            </Button>
+            <Button onClick={toggleTwo}>
+              Hint #2 {hintTwo ? ": '" + hint2 + "'" : ""}
+            </Button>
+            <Button onClick={toggleThree}>
+              Hint #3 {hintThree ? ": '" + hint3 + "'" : ""}
+            </Button>
+            <Button onClick={toggleAnswer}>
+              Answer {answerOn ? ": '" + answer + "'" : ""}
+            </Button>
+          </Button.Group>
         </Card.Content>
         <Card.Content extra>
           <div>
@@ -93,7 +94,7 @@ function SingleFlash(props) {
 }
 
 const FETCH_ONE_FLASH_QUERY = gql`
-  query($flashId: ID!) {
+  query ($flashId: ID!) {
     getFlash(flashId: $flashId) {
       id
       category

@@ -1,8 +1,3 @@
 import React from 'react';
+import gql from 'graphql-tag'
 
-const Flashes = () => (
-  <>
-    <div>This is the Flashes Component</div>
-  </>
-)
-export default Flashes

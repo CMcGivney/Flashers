@@ -32,10 +32,10 @@ function FlashCard({
   return (
     <Card>
       <Card.Content>
-        <Card.Header textAlign="center" >{category}</Card.Header>
+        <Card.Header as={Link} to={`/flashes/${id}`} textAlign="center" >{category}</Card.Header>
         <div style={{display:"flex", flexFlow:"row nowrap", justifyContent:"space-around"}}>
         <Card.Meta>createdBy: {username}</Card.Meta>
-        <Card.Meta as={Link} to={`/flashes/${id}`}>
+        <Card.Meta>
           {moment(createdAt).fromNow(true)} ago
         </Card.Meta>
         </div>

@@ -22,8 +22,11 @@ function FlashForm() {
       const data = proxy.readQuery({
         query: FETCH_FLASH_QUERY,
       });
-      data.getFlashCards = [result.data.createFlash, ...data.getFlashCards];
-      proxy.writeQuery({ query: FETCH_FLASH_QUERY, data });
+      const newFlashCard = [result.data.createFlash, ...data.getFlashCards];
+      proxy.writeQuery({
+        query: FETCH_FLASH_QUERY,
+        data: { getFlashCards: newFlashCard },
+      });
       values.category = "";
       values.question = "";
       values.answer = "";
@@ -39,7 +42,15 @@ function FlashForm() {
 
   return (
     <>
-      <Form onSubmit={onSubmit}>
+      <Form
+        onSubmit={onSubmit}
+        style={{
+          border: "solid black 5px",
+          boxShadow: "5px 10px #888888",
+          margin: "2rem 2rem",
+          padding:"1rem 1rem"
+        }}
+      >
         <h2>Create a Flashcard:</h2>
         <Form.Field>
           <Form.Input
