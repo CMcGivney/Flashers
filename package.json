@@ -7,7 +7,7 @@
     "serve": "node index",
     "start": "nodemon index",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "heroku-postbuild": "cd client && yarn add && yarn build" 
+    "heroku-postbuild": "cd client && npm install && npm run build" 
   },
   "keywords": [],
   "author": "",
