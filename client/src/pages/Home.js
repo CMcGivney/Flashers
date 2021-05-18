@@ -1,6 +1,7 @@
 import React, { useContext } from "react";
 import { Card, Transition, Button } from "semantic-ui-react";
 import { useQuery } from "@apollo/client";
+import { Link } from "react-router-dom";
 // import { Link } from "react-router-dom";
 
 import { AuthContext } from "../context/auth";
@@ -56,18 +57,26 @@ const Home = () => {
           )}
         </ul>
         {/* {console.log(groupByCategory(data.getFlashCards))} */}
-        <Button
-        className="ui blue button"
-        style={{
-          margin: "1rem 1rem",
-        }}
-        onClick={toggleForm}
-      >
-        Create FlashCard
-      </Button>
+        {user ? (
+          <Button
+            className="ui blue button"
+            style={{ margin: "1rem 1rem" }}
+            onClick={toggleForm}
+          >
+            Create FlashCard
+          </Button>
+        ) : (
+          <Button
+            className="ui blue button"
+            style={{ margin: "1rem 1rem" }}
+            as={Link}
+            to="/login"
+          >
+            Login to Create FlashCard
+          </Button>
+        )}
       </div>
 
-      
       {user && showForm ? <FlashForm /> : null}
 
       <Card.Group centered>

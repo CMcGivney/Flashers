@@ -4,10 +4,11 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "serve": "nodemon index",
-    "start": "node index",
+    "serve": "node index",
+    "start": "nodemon index",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "heroku-postbuild": "cd client && npm install && npm run build" 
+    "heroku-postbuild": "cd client && yarn install && yarn build",
+    "local-prod": "yarn clean && yarn install && yarn build && heroku local"
   },
   "keywords": [],
   "author": "",
@@ -15,6 +16,7 @@
   "dependencies": {
     "apollo-server": "^2.19.2",
     "bcryptjs": "^2.4.3",
+    "dotenv": "^9.0.2",
     "graphql": "^15.4.0",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.11.13",

@@ -18,6 +18,7 @@ const textStyle = {
   zIndex: "1",
   fontSize: "3em",
   fontWeight: "400",
+  padding: "1rem 1rem",
 }
 const Landing = () => {
  
